@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>我要进货</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+		<link rel="stylesheet" href="/static/css/overBootstrap.css" />
+	</head>
+
+	<body>
+		<div class="detail-header">
+			<div class="currentLocation">当前位置 : 商品管理>>我要进货</div>
+		</div>
+		<div class="detail-content">
+			<div class="detail-content-div">
+				<div class="tab-panel clearfix" id="purinfo" style="display: none;">
+					 <div class="left-title" style="width:100%">收货信息</div>
+					 <div class="tab-panel-col">
+					 	<form class="form-horizontal">
+						  	<div class="form-group">
+							    <label class="col-sm-2 control-label">收货人：</label>
+							    <div class="col-sm-6">
+							      	<input type="text" class="form-control" id="customer" disabled="disabled" />
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-2 control-label">所在地：</label>
+							    <div class="col-sm-10">
+							      	<div class="clearfix" id="city">
+							      		<div class="col-sm-4" style="padding-left:0;">
+							      			<select class="form-control prov" id="provinceId">
+											</select>
+							      		</div>
+							      		<div class="col-sm-4">
+							      			<select class="form-control city" disabled="disabled" id="cityId">
+											</select>
+							      		</div>
+							      		<div class="col-sm-4">
+							      			<select class="form-control dist" disabled="disabled" id="areaId">
+											</select>
+							      		</div>
+							      	</div>
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-2 control-label">详细地址：</label>
+							    <div class="col-sm-6">
+							      	<textarea class="form-control" placeholder="请输入详细地址" id="address"></textarea>
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-2 control-label">邮编：</label>
+							    <div class="col-sm-6">
+							      	<input type="text" class="form-control" placeholder="请输入正确的邮编" id="zipcode" />
+							    </div>
+						  	</div>
+						  	<div class="form-group">
+							    <label class="col-sm-2 control-label">手机：</label>
+							    <div class="col-sm-6">
+							      	<input type="text" class="form-control" placeholder="请输入手机号码" id="mobile" />
+							    </div>
+						  	</div>
+						</form>
+					 </div>
+				</div>
+				<div class="clearfix">
+					<table class="table1">
+						<thead>
+							<tr>
+								<th>商品编号</th>
+								<th>商品名称</th>
+								<th class="td1">属性编号（sku编号）</th>
+								<th class="td1">属性值（sku值）</th>
+								<th class="td1">进货数量</th>
+							</tr>
+						</thead>
+						<tbody id="content"></tbody>
+						<script type="text/html" id="template">
+							{{if list.length > 0}}
+								{{each list as obj i}}
+								<tr class="tr1">
+									<td>{{obj.code}}</td>
+									<td>{{obj.name}}</td>
+									<td colspan="3">
+										<table style="width:100%;" class="sontable">
+											{{each obj.valList as obj2}}
+											<tr>
+												<td class="td1">{{obj2.skuId}}</td>
+												<td class="td1">{{obj2.val}}</td>
+												<td class="td1"><input type="text" data-skuId="{{obj2.skuId}}" data-goodsId="{{obj.dmId}}"></td>
+											</tr>
+											{{/each}}
+										</table>
+									</td>
+								</tr>
+								{{/each}}
+							{{else}}
+								<p>暂无数据</p>
+							{{/if}}							
+						</script>
+					</table>
+					<nav id="pageContent" class="text-center">							
+					</nav>
+					<script id="pageTemplate" type="text/html">
+						<ul class="pagination">
+						    <li>
+						      	<a href="javascript:;" data-val="{{startIndex}}">
+						        	<span>&laquo;</span>
+						      	</a>
+						    </li>
+						    {{each indexs as value i}}
+						    <li class="{{value == nowPage ? 'active':''}}"><a href="javascript:;" data-val="{{value}}">{{value}}</a></li>
+						    {{/each}}
+						    <li>
+						      	<a href="javascript:;" data-val="{{endIndex}}">
+						        	<span>&raquo;</span>
+						      	</a>
+						    </li>
+						</ul>
+					</script>
+					<div class="text-right mt15">共<b class="text-org f18" id="total">0</b>件&nbsp;<button type="button" class="btn btn-info" style="width:220px;" event-id="ensure">选好了</button></div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="/module/seajs/sea.js"></script>
+<script type="text/javascript">
+	seajs.config({
+	  	base: '/module/',
+	  	alias: {
+	    	'jquery': 'jquery/jquery.js',
+	    	'citySelect': 'jquery/jquery.cityselect.js',
+	    	'layer': 'layer/layer.js',
+	    	'laydate': 'laydate/laydate.dev.js',
+	    	'template': 'template/template.js',
+	  	},
+	  	vars: {
+	        'src': '../static/commodityManage/src/purchaseList'
+	    }
+	});
+	seajs.use("/static/main");
+</script>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>销售订单</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+		<link rel="stylesheet" href="/static/css/overBootstrap.css" />
+		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css" />
+	</head>
+
+	<body>
+		<div class="detail-header">
+			<div class="currentLocation">当前位置 : 订单管理>>销售订单</div>
+		</div>
+		<div class="detail-content">
+			<div class="detail-content-div">
+				<div>
+					<!-- Nav tabs -->
+					<ul class="nav nav-pills" role="tablist">
+						<li role="presentation" class="active"><a href="#" role="tab" data-toggle="tab" data-status="">全部订单</a></li>
+						<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-status="5">新订单</a></li>
+						<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-status="4">配送中订单</a></li>
+						<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-status="7">退款中订单</a></li>
+						<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-status="0">已完成订单</a></li>
+						<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-status="6">已关闭订单</a></li>						
+					</ul>
+					<!-- Tab panes -->
+					<div class="clearfix mt30 mb30">
+						<form class="form-inline">
+							<div class="form-group">
+								<select class="form-control" id="orderKey">
+								  	<option value="">全部</option>
+								  	<option value="0">订单编号</option>
+								  	<option value="1">收货人姓名</option>
+								  	<option value="2">电话</option>
+								  	<option value="3">收货地址</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="请输入订单编号/收货人姓名/电话/地址关键字" id="orderVal" style="width:350px;">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail2">下单时间</label>
+								<input type="text" class="form-control" style="width:120px;" id="startDate"> 至 <input type="text" class="form-control" style="width:120px;" id="endDate">
+							</div>
+							<div class="input-group">
+								<button class="btn btn-default" type="button" event-id="filter">
+					        		<span class="glyphicon glyphicon-search"></span> 查询
+					        	</button>
+							</div>
+						</form>
+					</div>
+					<div class="sales-list" id="salesList"></div>
+					<script type="text/html" id="template0">
+						{{if list.length > 0}} {{each list as obj i}}
+						<div class="sales-item">
+							<h4><span>订单编号：{{obj.orderStringID}}</span> <span>下单时间：{{obj.crtime | dateFormat}}</span><span class="fr">订单状态 : <b class="f24">{{obj.orderStatus | statusFormat}}</b></span></h4>
+							<table>
+								<thead>
+									<tr>
+										<th>商品编号</th>
+										<th>商品图</th>
+										<th>商品名称</th>
+										<th>商品规格</th>
+										<th>商品数量</th>
+									</tr>
+								</thead>
+								<tbody>{{include 'template1' obj}}</tbody>
+							</table>
+							<div class="clearfix mt20">
+								<p>收货人：{{obj.receivingName}}</p>
+								<p>联系电话：{{obj.receivingPhone}}</p>
+								<p>收货地址：{{obj.receivingAddress}}</p>
+								<p>备注：{{obj.note}}</p>
+							</div>
+							<div class="clearfix mt15 mb15 text-right">
+								{{if obj.orderStatus == "5"}}
+								<button class="btn btn-info" type="button" event-id="shipping" data-orderId="{{obj.orderStringID}}" data-sellerId="{{obj.sellerId}}">接单</button>
+								<button class="btn btn-default" type="button" event-id="cancel" data-orderId="{{obj.orderStringID}}" data-sellerId="{{obj.sellerId}}">取消订单</button>
+								{{/if}}
+								<a class="btn btn-default" href="saleDetail.html?id={{obj.orderStringID}}">查看详情</a>
+							</div>
+						</div>
+						{{/each}}{{else}}
+						<p style="text-align: center;">暂无数据</p> {{/if}}
+					</script>
+					<script type="text/html" id="template1">
+						{{if supermarketGoods.length > 0}} {{each supermarketGoods as obj i}}
+						<tr>
+							<td>{{obj.goodsId}}</td>
+							<td><img src="{{obj.goodsImg}}" width="80px"></td>
+							<td>{{obj.goodsName}}</td>
+							<td>{{obj.goodsSpec}}</td>
+							<td>{{obj.goodsNum}}</td>
+						</tr>
+						{{/each}} {{else}}
+						<p style="text-align: center;">暂无数据</p>
+						{{/if}}
+					</script>
+					<nav id="pageContent" class="text-center">
+					</nav>
+					<script id="pageTemplate" type="text/html">
+						<ul class="pagination">
+							<li>
+								<a href="javascript:;" data-val="{{startIndex}}">
+									<span>&laquo;</span>
+								</a>
+							</li>
+							{{each indexs as value i}}
+							<li class="{{value == nowPage ? 'active':''}}"><a href="javascript:;" data-val="{{value}}">{{value}}</a></li>
+							{{/each}}
+							<li>
+								<a href="javascript:;" data-val="{{endIndex}}">
+									<span>&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</script>
+				</div>
+			</div>
+		</div>		
+	</body>
+
+</html>
+<script type="text/javascript" src="/module/seajs/sea.js"></script>
+<script>
+	seajs.config({
+		base: '/module/',
+		alias: {
+			'jquery': 'jquery/jquery.js',
+			'bootstrap': 'bootstrap/bootstrap.min.js',
+			'datetimepicker': 'jquery/jquery.datetimepicker.full.min.js',
+			'layer': 'layer/layer.js',
+			'laydate': 'laydate/laydate.dev.js',
+			'template': 'template/template.js',
+		},
+		vars: {
+			'src': '../static/orderManage/src/salesList'
+		}
+	});
+	seajs.use("/static/main");
+</script>

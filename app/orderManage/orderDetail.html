@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>订单详情</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+		<link rel="stylesheet" href="/static/css/overBootstrap.css" />
+	</head>
+
+	<body>
+		<div class="detail-header">
+			<div class="currentLocation">当前位置 : 订单管理>>订单详情</div>
+		</div>
+		<div class="detail-content" id="content">
+			
+		</div>
+		<script type="text/html" id="template">
+			<div class="detail-content-div">
+				<div class="detail-info">
+					<h3>订单信息</h3>
+					<div class="clearfix">
+						<div class="col-sm-6">
+							<div class="tab-panel-col _left">
+							 	<ul>
+							 		<li>
+							 			<label>收 货 人：</label> <span>{{customer}}</span>
+							 		</li>
+							 		<li>
+							 			<label>联系电话：</label> <span>{{mobile}}</span>
+							 		</li>
+							 		<li>
+							 			<label>收货地址：</label> <span>{{provinceName}}{{cityName}}{{areaName}}{{address}}</span>
+							 		</li>
+							 		<li>
+							 			<label>备　　注：</label> <span>{{remark}}</span>
+							 		</li>
+							 		<li>
+							 			<label>订单编号：</label> <span>{{code}}</span>
+							 		</li>
+							 	</ul>
+							</div>
+						</div>
+						<div class="col-sm-6 _right">
+							<h4><img src="/static/img/order-ico.png">订单状态：{{status | statusFormat}}</h4>
+						</div>
+					</div>
+					<div class="tab-panel-col mt30">
+						<table style="width:100%;">
+							<thead>
+								<tr>
+									<th>商品编号</th>
+									<th>商品名称</th>
+									<th>
+										<div class="col-sm-4">属性编号(sku编号)</div>
+										<div class="col-sm-4">属性值(sku值)</div>
+										<div class="col-sm-4">进货数量</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{each shopPurchaseOrderItemVoList as item}}
+								<tr>
+									<td>{{item.goodsId}}</td>
+									<td>{{item.goodsName}}</td>
+									<td>
+										{{each item.shopValueVoList as shop}}
+										<div class="claerfix">
+											<div class="col-sm-4">{{shop.skuId}}</div>
+											<div class="col-sm-4">{{shop.val}}</div>
+											<div class="col-sm-4">{{shop.actualNum}}</div>
+										</div>
+										{{/each}}
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-panel-col mt30 text-right">
+						共计<span class="f24 text-org">{{skuNum}}</span>件
+					</div>
+					<div class="tab-panel-col mt30">
+						<p>下单时间：{{createTime | dateFormat}}</p>
+						<p>接单时间：{{confirmTime | dateFormat}}</p>
+						<p>配送时间：{{deliveryTime | dateFormat}}</p>
+						<p>完成时间：{{finishTime | dateFormat}}</p>
+					</div>
+				</div>
+			</div>
+		</script>
+	</body>
+
+</html>
+<script type="text/javascript" src="/module/seajs/sea.js"></script>
+<script type="text/javascript">
+	seajs.config({
+	  	base: '/module/',
+	  	alias: {
+	    	'jquery': 'jquery/jquery.js',
+	    	'citySelect': 'jquery/jquery.cityselect.js',
+	    	'layer': 'layer/layer.js',
+	    	'laydate': 'laydate/laydate.dev.js',
+	    	'template': 'template/template.js',
+	  	},
+	  	vars: {
+	        'src': '../static/orderManage/src/orderDetail'
+	    }
+	});
+	seajs.use("/static/main");
+</script>

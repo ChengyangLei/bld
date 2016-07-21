@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>提现流水列表</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+		<link rel="stylesheet" href="/static/css/overBootstrap.css" />
+		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css" />
+	</head>
+
+	<body>
+		<div class="detail-header">
+			<div class="currentLocation">当前位置 : 钱包>>提现流水列表</div>
+		</div>
+		<div class="detail-content">
+			<div class="detail-content-div">
+				<div class="clearfix">
+					<form class="form-inline">					  	
+					  	<div class="form-group">
+						    <label for="exampleInputName2">状态</label>
+						    <select class="form-control" id="status">
+							  	<option value="">全部</option>
+							  	<option value="0">提现中</option>
+							  	<option value="1">已提现</option>
+							  	<option value="2">驳回提现</option>
+							  	<option value="3">取消</option>
+							  	<option value="4">追回</option>
+							</select>
+					  	</div>
+					  	<div class="form-group">
+						    <input type="text" class="form-control" placeholder="请输入流水号" style="width:300px;" id="val">
+					  	</div>				  	
+					  	<div class="form-group">
+						    <label for="exampleInputEmail2">提现时间</label>
+						    <input type="text" class="form-control" style="width:120px;" id="startDate"> 至 <input type="text" class="form-control" style="width:120px;" id="endDate">
+					  	</div>
+					  	<div class="input-group">
+					      	<button class="btn btn-default" type="button" event-id="filter">
+				        		<span class="glyphicon glyphicon-search"></span> 查询
+				        	</button>
+					    </div>
+					</form>
+				</div>
+				<div class="clearfix mt20">
+					<table class="table1">
+						<thead>
+							<tr>
+								<th>类型</th>
+								<th>流水号</th>
+								<th>金额</th>
+								<th>状态</th>
+								<th>时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="content"></tbody>
+						<script type="text/html" id="template">
+							{{if list.length > 0}}
+								{{each list as obj i}}
+								<tr class="tr1">
+									<td>{{obj.accountType ==0?"对公":"对私"}}</td>
+									<td>{{obj.dmId}}</td>
+									<td>{{obj.amount}}</td>
+									<td>{{obj.astatus | status}}</td>
+									<td>{{obj.createOn | dateFormat}}</td>
+									<td><a href="withdrawDetail.html?id={{obj.dmId}}">查看详情</a></td>
+								</tr>
+								{{/each}}
+							{{else}}
+								<p>暂无数据</p>
+							{{/if}}							
+						</script>
+					</table>
+					<nav id="pageContent" class="text-center">							
+					</nav>
+					<script id="pageTemplate" type="text/html">
+						<ul class="pagination">
+						    <li>
+						      	<a href="javascript:;" data-val="{{startIndex}}">
+						        	<span>&laquo;</span>
+						      	</a>
+						    </li>
+						    {{each indexs as value i}}
+						    <li class="{{value == nowPage ? 'active':''}}"><a href="javascript:;" data-val="{{value}}">{{value}}</a></li>
+						    {{/each}}
+						    <li>
+						      	<a href="javascript:;" data-val="{{endIndex}}">
+						        	<span>&raquo;</span>
+						      	</a>
+						    </li>
+						</ul>
+					</script>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="/module/seajs/sea.js"></script>
+<script type="text/javascript">
+	seajs.config({
+	  	base: '/module/',
+	  	alias: {
+	    	'jquery': 'jquery/jquery.js',
+	    	'datetimepicker': 'jquery/jquery.datetimepicker.full.min.js',
+	    	'layer': 'layer/layer.js',
+	    	'laydate': 'laydate/laydate.dev.js',
+	    	'template': 'template/template.js',
+	  	},
+	  	vars: {
+	        'src': '../static/walletManage/src/withdrawList'
+	    }
+	});
+	seajs.use("/static/main");
+</script>

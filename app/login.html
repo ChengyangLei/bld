@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<!-- 启用360浏览器的极速模式(webkit) -->
+	<meta name="renderer" content="webkit">
+	<title>胖胖生活后台管理</title>
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../static/css/index.css" />
+</head>
+<body>
+	<div class="container-fluid login-main">
+		<div class="container">
+			<div class="login-form">
+				<h3>胖胖超市</h3>
+				<form>
+					<div class="form-item">
+						<label for="name"><span class="glyphicon glyphicon-user"></span></label>
+						<input type="text" input-id="username" placeholder="请输入手机号码"/>
+					</div>
+					<div class="form-item">
+						<label for="pwd"><span class="glyphicon glyphicon-lock"></span></label>
+						<input type="password" input-id="password" placeholder="请输入密码"/>
+					</div>
+					<div class="text-center mt25">
+						<button type="button" event-id="login">登录</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid login-bottom">
+		<div class="container">
+      		<p>2015-2018 © All Rights Reserved.粤ICP备15020515号</p>
+			<p>深圳市擎天柱信息技术有限公司 版权所有</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="../module/seajs/sea.js"></script>
+	<script type="text/javascript">
+		seajs.config({
+		  	base: '/module/',
+		  	alias: {
+		    	'jquery': 'jquery/jquery.js',
+		    	'layer': 'layer/layer.js'
+		  	},
+		  	vars:{
+		  		'src': '../static/login/src/login'
+		  	}
+		});
+		seajs.use("/static/main");
+	</script>
+</body>
+</html>

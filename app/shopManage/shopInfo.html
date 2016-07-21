@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>便利店信息</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+		<link rel="stylesheet" href="/static/css/overBootstrap.css" />
+	</head>
+
+	<body>
+		<div class="detail-header">
+			<div class="currentLocation">当前位置 : 店铺管理>>便利店信息</div>
+		</div>
+		<div class="detail-content" id="content">
+		</div>
+		<script id="template" type="text/html">
+			<div class="detail-content-div">
+				<div class="tab-panel">
+					 <div class="left-title">便利店信息</div>
+					 <div class="tab-panel-col">
+					 	<ul>
+					 		<li>
+					 			<label>便利店账号 ： </label> <span>{{shopManageId}}</span>
+					 		</li>
+					 		<li>
+					 			<label>便利店名称 ： </label> <span>{{name}}</span>
+					 		</li>
+					 		<li>
+					 			<label>手机号码 ： </label> <span>{{mobile}}</span>
+					 		</li>
+					 		<li>
+					 			<label>便利店地址 ： </label> <span>{{address}}</span>
+					 		</li>
+					 	</ul>
+					 </div>
+				</div>
+				<div class="tab-panel">
+					 <div class="left-title">经营信息</div>
+					 <div class="tab-panel-col">
+					 	<ul>
+					 		<li>
+					 			<label>加盟费 ： </label> <span>{{franchiseFees}}</span>
+					 		</li>
+					 		<li>
+					 			<label>结算周期 ： </label> <span>{{ettlementCycle}}天</span>
+					 		</li>
+					 		<li>
+					 			<label>分成点 ： </label> <span>{{splitPoint}}</span>
+					 		</li>
+					 		<li>
+					 			<label>经营范围 ： </label> <span>{{each shopManageCategoryList as item}}{{item.categoryName}} | {{/each}}</span>
+					 		</li>
+					 		<li>
+					 			<label>所属仓储 ： </label> <span>{{cczxName}}</span>
+					 		</li>
+					 	</ul>
+					 </div>
+				</div>
+				<div class="tab-panel">
+					 <div class="left-title">经营人信息</div>
+					 <div class="tab-panel-col">
+					 	<ul>
+					 		<li>
+					 			<label>经营者 ： </label> <span>{{lpName}}</span>
+					 		</li>
+					 		<li>
+					 			<label>身份证号 ： </label> <span>{{lpIdCard}}</span>
+					 		</li> 
+					 	</ul>
+					 </div>
+				</div>				
+				<div class="tab-panel">
+					<div class="left-title">运营资质</div>
+					<div class="tab-panel-col">
+					 	<div class="row">
+					      	<div class="col-xs-6 col-md-2">
+						        <a href="#" class="thumbnail">
+						          <img data-holder-rendered="true" src="{{licence}}" style="width:100%;display:block;">
+						        </a>
+					      	</div>
+					      	<div class="col-xs-6 col-md-2">
+						        <a href="#" class="thumbnail">
+						          <img data-holder-rendered="true" src="{{idCardBehind}}" style="width:100%;display:block;">
+						        </a>
+					      	</div>
+					      	<div class="col-xs-6 col-md-2">
+						        <a href="#" class="thumbnail">
+						          <img data-holder-rendered="true" src="{{idCardFront}}" style="width:100%;display:block;">
+						        </a>
+					      	</div>
+					 	</div>
+					</div>
+				</div>				
+			</div>
+		</script>
+	</body>
+
+</html>
+<script type="text/javascript" src="/module/seajs/sea.js"></script>
+<script type="text/javascript">
+	seajs.config({
+	  	base: '/module/',
+	  	alias: {
+	    	'jquery': 'jquery/jquery.js',
+	    	'layer': 'layer/layer.js',
+	    	'template': 'template/template.js',
+	  	},
+	  	vars: {
+	        'src': '../static/shopManage/src/shopInfo'
+	    }
+	});
+	seajs.use("/static/main");
+</script>
