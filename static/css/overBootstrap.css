@@ -1,0 +1,141 @@
+.btn-danger {
+	border-left: none;
+}
+
+.btn-border {
+	display: inline-block;
+	padding: 6px 0px;
+	margin-bottom: 0;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 20px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	border-color: #DADADA;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	float: left;
+}
+
+.open>.dropdown-menu {
+	max-height: 200px;
+	overflow: auto;
+}
+
+.table>thead>tr>th {
+	vertical-align: bottom;
+	border-bottom: 1px solid #ddd;
+	background-color: #1EBCA5;
+	text-align: center;
+	color: #fff;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+	text-align: center;
+}
+
+label {
+	font-weight: normal;
+	color: #A6A6A6;
+}
+
+.loading {
+	position: absolute;
+	left: 0;
+	margin: auto;
+	display: table;
+	top: 40%;
+	margin-top: -12px;
+	text-align: center;
+	width: 100%;
+	z-index: 99999;
+	display: none;
+}
+
+.loading span {
+	margin-left: 12px;
+}
+
+.hui-table {
+	margin-top: 12px;
+}
+
+.paginations-outDiv {
+	display: table;
+	margin: 0 auto;
+	display: none;
+}
+
+.paginations {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.paginations a {
+	text-decoration: none;
+	border: 1px solid #999;
+	color: #999;
+}
+
+.paginations a,
+.paginations span {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-right: 6px;
+	margin-bottom: 6px;
+}
+
+.paginations .current {
+	background: #1FBBA6;
+	color: #fff;
+	border: 1px solid #AAE;
+}
+
+.paginations .current.prev,
+.paginations .current.next {
+	color: #999;
+	border-color: #999;
+	background: #fff;
+	cursor: pointer;
+}
+
+.paginations-pagesize {
+	display: inline-block;
+	margin-left: 24px;
+	color: #999;
+}
+
+.paginations-pagesize select {
+	color: #FFFFFF;
+	background-color: #1FBBA6;
+	padding: 6px 12px;
+}
+
+.paginations-qianwang {
+	padding: 6px 0;
+	width: 44px;
+	text-align: center;
+}
+
+.pagination-button {
+	padding: 6px;
+	background-color: #1FBBA6;
+	color: #fff;
+	border: 1px solid #1FBBA6;
+}
