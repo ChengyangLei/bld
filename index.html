@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta charset="utf-8" />
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>胖胖生活后台管理</title>
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../static/css/index.css" />
+	</head>
+
+	<body>
+		<!--头部-->
+		<header class="header">
+			<div class="header-out">
+				<div class="header-right">
+					<!-- <span class="userImg">
+						<img src="http://ucimg.inveno.com:80/55/icon?id=2221989421721568355&from=q&app=xiaozhi&width=94&height=74" alt="用户头像" />
+					</span> -->
+					<span data-store="name"></span>
+					<a href="javascript:;" event-id="chooseStatusShow">【...】<em class="glyphicon glyphicon-chevron-down"></em></a>
+					<span class="header-right-outLogin" event-id="logout">退出登录</span>
+				</div>
+				<h1 class="header-h1">便利店后台中心</h1>
+			</div>
+		</header>
+		<!--头部-->
+		<!--遮罩层-->
+		<div id="allMaskLayer" class="allMaskLayer"></div>
+		<!--遮罩层-->
+		<div id="layout">
+			<!--顶部logo-->
+			<div class="logo">
+				<img src="../static/img/logo.png" alt="胖胖生活" />
+			</div>
+			<!--顶部logo-->
+			<!--左侧菜单栏-->
+			<div class="leftMenu">
+				<div class="leftMenu-items">
+					<ul class="leftMenu-items-ul">
+						<li class="leftMenu-active">
+							<div class="leftMenu-items-ul-div">
+								<img class="leftMenu-items-ul-li-img" src="../static/img/store.png" alt="店铺管理" />
+								<p>店铺管理</p> 
+							</div>
+							<div class="subItmes">
+								<span class="triangle-down"></span>
+								<div class="subItem">
+									<a href="../app/shopManage/shopInfo.html" target="mainIframe"><div><span class="subItmes-span subItmes-active">便利店信息</span></div></a>
+									<a href="../app/shopManage/shopSettings.html" target="mainIframe"><div><span class="subItmes-span">便利店管理</span></div></a>
+								</div>
+							</div>
+							<div class="lines">
+								<div class="heiselines1"></div>
+								<div class="heiselines2"></div>
+							</div>
+						</li>
+						<li>
+							<div class="leftMenu-items-ul-div">
+								<img class="leftMenu-items-ul-li-img" src="../static/img/goods.png" alt="商品管理" />
+								<p>商品管理</p>
+							</div>
+							<div class="subItmes">
+								<span class="triangle-down"></span>
+								<div class="subItem">
+									<a href="../app/commodityManage/goodsList.html" target="mainIframe"><div><span class="subItmes-span">商品列表</span></div></a>
+									<a href="../app/commodityManage/categoryList.html" target="mainIframe"><div><span class="subItmes-span">分类管理</span></div></a>
+									<a href="../app/commodityManage/purchaseList.html" target="mainIframe"><div><span class="subItmes-span">我要进货</span></div></a>
+								</div>
+							</div>
+							<div class="lines">
+								<div class="heiselines1"></div>
+								<div class="heiselines2"></div>
+							</div>
+						</li>
+						<li>
+							<div class="leftMenu-items-ul-div">
+								<img class="leftMenu-items-ul-li-img" src="../static/img/order.png" alt="订单管理" />
+								<p>订单管理</p>
+							</div>
+							<div class="subItmes">
+								<span class="triangle-down"></span>
+								<div class="subItem">
+									<a href="../app/orderManage/salesList.html" target="mainIframe"><div><span class="subItmes-span">销售订单</span></div></a>
+									<a href="../app/orderManage/orderList.html" target="mainIframe"><div><span class="subItmes-span">进货订单</span></div></a>
+								</div>
+							</div>
+							<div class="lines">
+								<div class="heiselines1"></div>
+								<div class="heiselines2"></div>
+							</div>
+						</li>
+						<li>
+							<div class="leftMenu-items-ul-div">
+								<img class="leftMenu-items-ul-li-img" src="../static/img/wallet.png" alt="钱包管理" />
+								<p>钱包管理</p>
+							</div>
+							<div class="subItmes">
+								<span class="triangle-down"></span>
+								<div class="subItem">
+									<a href="../app/wallet/wallet.html" target="mainIframe"><div><span class="subItmes-span">钱包管理</span></div></a>
+								</div>
+							</div>
+							<div class="lines">
+								<div class="heiselines1"></div>
+								<div class="heiselines2"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--左侧菜单栏-->
+			<!--底部固定内容-->
+			<div class="footer">
+				版权所有©2015-2016 深圳市擎天柱信息技术有限公司
+			</div>
+			<!--底部固定内容-->
+		</div>
+		<!--右侧内容-->
+		<div id="content" class="content">
+			<iframe id="mainIframe" name="mainIframe" frameborder="0" scrolling="auto" src="../app/shopManage/shopInfo.html">
+				胖胖生活使用了框架技术，但是您的浏览器不支持框架，请升级您的浏览器以便正常访问胖胖生活。 
+			</iframe>
+		</div>
+		<div layer-dom="chooseStatus" style="padding:20px;display:none;">
+			<p>营业时间：09:00 - 21:00</p>
+			<div class="clearfix mb10"><button class="btn btn-info mr5" event-id="chooseStatus" data-val="0">开启营业</button><span class="f12">当前店铺处于营业时间内，正常接单<span></div>
+			<div>
+				<button class="btn btn-default fl mr5" event-id="chooseStatus" data-val="1">停止营业</button>
+				<p class="f12">适用于较长时间内停止服务，不接受任何订单，手动恢复营业中状态可正常接单。<p>
+			</div>
+		</div>
+		<!--右侧内容-->
+		<script type="text/javascript" src="../module/seajs/sea.js"></script>
+		<script type="text/javascript">			
+			seajs.config({
+		  		base: '/module/',
+			  	alias: {
+			    	'jquery': 'jquery/jquery.js',
+			    	'layer': 'layer/layer.js'
+			  	},
+			  	vars:{
+			  		src:'./index/src/index'
+			  	}
+			});
+			seajs.use("/static/main");
+		</script>
+	</body>
+
+</html>
