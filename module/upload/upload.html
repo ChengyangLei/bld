@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- 启用360浏览器的极速模式(webkit) -->
+		<meta name="renderer" content="webkit">
+		<title>图片上传</title>
+		<script src="jquery.min.js" type="text/javascript"></script>
+		<script src="jquery.uploadify.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="uploadify.css">
+		<style type="text/css">
+		body {
+		    font: 13px Arial, Helvetica, Sans-serif;
+		}
+
+		.haha {
+		    color: #FFFFFF;
+		}
+
+		#queue {
+		    background-color: #FFF;
+		    border-radius: 3px;
+		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+		    height: 105px;
+		    margin-bottom: 10px;
+		    overflow: auto;
+		    padding: 5px 10px;
+		    width: 300px;
+		}
+		</style>
+	</head>
+
+	<body>
+		<form>
+			<div id="queue">
+				<p>*只能选择*.jpg;*.png;*.gif格式图片</p>
+				<p>*一次只能选择一张图片</p>
+				<p>*单张图片大小不允许超过4M</p>
+			</div>
+			<input id="file_upload" name="file_upload" type="file" multiple="true">
+			<p id="pregress"></p>
+		</form>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function() {
+		$('#file_upload').uploadify({
+			'formData'     : {
+				'token'     : _utils.getCookie('token')
+			},
+			'queueID'		: 'queue',
+			'fileObjName'   : 'file',  
+			'swf'      		: 'uploadify.swf',
+			'uploader' 		: 'http://192.168.0.54:8080/qtz_sm/gd/goods/uploadGoodsImg',
+			'buttonText'	: '选择图片',
+			'fileTypeExts'	:'*.jpg;*.png;*.gif',
+			'fileSizeLimit'	:'4MB',
+			'multi'			:false,
+			onUploadProgress: function(file,bytesUploaded,bytesTotal,totalBytesUploaded,totalBytesTotal){
+                $('#pregress').html('总共需要上传'+bytesTotal+'字节，'+'已上传'+totalBytesTotal+'字节')
+            },
+			onUploadSuccess: function(file,data,response){
+				if(response){
+					var data =  JSON.parse(data);
+					var img = new Image();
+					img.src=data.data.filePath;
+					$(img).css({'max-width':'300px','max-height':'100px'});
+					$("#queue").html('');
+					$("#queue").append(img);
+					parent.document.getElementById(_utils.getParam('id')).src=data.data.filePath;
+					parent.document.getElementById(_utils.getParam('id')).setAttribute("isupload","true");
+				}
+            },
+            onError: function(event, queueID, fileObj) {
+               $('#pregress').html("文件:" + fileObj.name + "上传失败");
+            }
+		});
+	});
+	var	_utils = {
+	    getCookie:function(name){
+			var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+			if(arr=document.cookie.match(reg))
+				return unescape(arr[2]);
+			else
+				return null;
+	    },
+	    getParam: function (param) {
+            var local = document.location.search.substring(1);
+            var splits = local.split("&");
+            for (var i = 0; i < splits.length; i++) {
+                var sp = splits[i];
+                if (sp.indexOf(param + "=") == 0) {
+                    var val = sp.substring(param.length + 1);
+                    return decodeURIComponent(val);
+                }
+            }
+        }
+	};
+
+	var getsec = function (str){
+		var str1=str.substring(1,str.length)*1;
+		var str2=str.substring(0,1);
+		if (str2=="s")
+		{
+			return str1*1000;
+		}
+		else if (str2=="h")
+		{
+			return str1*60*60*1000;
+		}
+		else if (str2=="d")
+		{
+			return str1*24*60*60*1000;
+		}
+	}
+	//$(function() {
+		// $('#file_upload').uploadify({
+		// 	'swf'      : 'uploadify.swf',
+		// 	'uploader' : '/proxy/proxy.jsp?http://192.168.40.101:8080/qtz_sm/gd/goods/uploadGoodsImg?token=123'
+		// });
+		// $("#file_upload").uploadify({
+  //           'uploader': '/res/plugin/uploadify/uploadify.swf',
+  //           'script':"/fileserver/upload",
+  //           'cancelImg': '/res/plugin/uploadify/cancel.png',
+  //           'queueID': 'fileQueue',
+  //           'auto': true,
+  //           'buttonText': 'select',
+  //           'simUploadLimit' : 1,
+  //           'queueSizeLimit' : 1,
+  //           'fileExt': '*.jpg;*.gif;*.jpeg;*.png;*.bmp;*.zip;*.rar;*.7z',
+  //           onComplete: function(event, queueID, fileObj, response, data) {
+  //               //转换为json对象
+  //               var dataObj = eval("("+response+")");
+  //               saveFile(dataObj);
+  //           },
+  //           onSelect:function(){
+  //           },
+  //           onError: function(event, queueID, fileObj) {
+  //               alert("文件:" + fileObj.name + "上传失败");
+  //           }
+  //       });
+	//});
+</script>
